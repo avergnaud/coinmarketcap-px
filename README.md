@@ -1,0 +1,3 @@
+curl -H "X-CMC_PRO_API_KEY: ..." -H "Accept: application/json" -d "start=1&limit=10&convert=USD" -G https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
+
+export API_KEY=...
