@@ -9,6 +9,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ public class MarketCapController {
     @Autowired
     CoinmarketcapClient client;
 
+    @CrossOrigin(origins = "http://localhost:1313")
     @GetMapping(value = "market-cap", produces = {MediaType.APPLICATION_JSON_VALUE})
     public String getAll() {
 
