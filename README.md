@@ -5,3 +5,5 @@ https://pro.coinmarketcap.com/account/
 export API_KEY=...
 
 https://coinmarketcap-px.herokuapp.com/market-cap
+
+localhost:8080/cryptocurrency/listings/latest?start=1&limit=10&convert=EUR
