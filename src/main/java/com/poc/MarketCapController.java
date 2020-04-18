@@ -1,14 +1,8 @@
 package com.poc;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,28 +24,20 @@ public class MarketCapController {
     @Autowired
     CoinmarketcapClient client;
 
-    @CrossOrigin(origins = "http://localhost:1313")
+    @CrossOrigin(origins = {"http://localhost:1313", "https://avergnaud.github.io"})
     @GetMapping(value = "/listings/latest", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> getAll(@RequestParam Integer start,
                                          @RequestParam Integer limit,
                                          @RequestParam String convert) {
 
         String uri = coinmarketcapUrl + "/cryptocurrency/listings/latest";
-        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-        parameters.add(new BasicNameValuePair("start",start.toString()));
-        parameters.add(new BasicNameValuePair("limit",limit.toString()));
-        parameters.add(new BasicNameValuePair("convert",convert));
 
-        HttpGet request = null;
         try {
-            URIBuilder query = new URIBuilder(uri);
-            query.addParameters(parameters);
-            request = new HttpGet(query.build());
-            String response = client.makeAPICall(request);
+            String response = client.makeAPICall(new URI(uri), start.toString(), limit.toString(), convert);
             return ResponseEntity.ok()
                     .body(response);
         } catch (IOException | URISyntaxException e) {
-            String message = "Error sending request: " + request + " " + e.getMessage();
+            String message = "Error sending request. " + e.getMessage();
             log.error(message, e);
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                     .body(message);

@@ -7,3 +7,5 @@ export API_KEY=...
 https://coinmarketcap-px.herokuapp.com/market-cap
 
 localhost:8080/cryptocurrency/listings/latest?start=1&limit=10&convert=EUR
+
+https://coinmarketcap-px.herokuapp.com/cryptocurrency/listings/latest?start=1&limit=10&convert=EUR
